@@ -10,7 +10,8 @@ const multer  = require('multer')
 const {storage}=require("../cloudConfig.js")
 const upload = multer({ storage })
 
-
+//search
+router.route("/search").post(wrapAsync(listingController.search))
 
 router
 .route("/")

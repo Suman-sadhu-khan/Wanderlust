@@ -2,7 +2,6 @@ if(process.env.NODE_ENV != "production"){
     require("dotenv").config();
 }
 
-
 const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
@@ -17,9 +16,14 @@ const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const User=require("./models/user.js");
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//routers
 const listingRouter=require("./routes/listing.js");
 const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//prerequisites
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
@@ -28,8 +32,12 @@ app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
-// const MONGODB_URL="mongodb://127.0.0.1:27017/wanderlust";
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//let's connect our mongodb server
+
+const MONGODB_URL=process.env.MONGODB_URL;
 const dbUrl=process.env.ATLASDB_URL;
+
 main().then(()=>{
     console.log("connected to db");
 })
@@ -40,6 +48,9 @@ main().then(()=>{
 async function main() {
   await mongoose.connect(dbUrl);
 }
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//mongostore configarations
 
 const store=MongoStore.create({
     mongoUrl:dbUrl,
@@ -53,6 +64,8 @@ store.on("error",()=>{
     console.log("ERROR in MONGO SESSION STORE",err)
 })
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//session management
 const sessionOption={
     store:store,
     secret:process.env.SECRET,
@@ -65,22 +78,27 @@ const sessionOption={
     },
 };
 
+//using connect flash to display our massage
+app.use(session(sessionOption));
+app.use(flash());
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//home page
 app.get("/",(req,res)=>{
     res.render("listings/home.ejs");
 });
 
-
-
-app.use(session(sessionOption));
-app.use(flash());
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//passport configaration
 
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//res.local variables
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
@@ -89,22 +107,20 @@ app.use((req,res,next)=>{
     next();
 })
 
-// app.get("/demouser",async (req,res)=>{
-//     let fakeUser=new User({
-//         email:"student@gmail.com",
-//         username:"delta-student"
-//     });
-//     let registeredUser=await User.register(fakeUser,"helloworld");
-//     res.send(registeredUser);
-// })
-
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//routers configaration
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
 app.use("/",userRouter);
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//wildcard route error handling middleware
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page Not Found!"))
 })
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//global error handling middleware
 
 app.use((err,req,res,next)=>{
     let{statusCode=500,message="Something went wrong!"}=err;
@@ -112,6 +128,8 @@ app.use((err,req,res,next)=>{
     // res.status(statusCode).send(message);
 })
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//port 8080
 app.listen(8080,()=>{
     console.log("server is listening to port 8080");
 })

@@ -8,6 +8,9 @@ body{
     flex: 1;
 }
 /* navbar */
+.container-fluid{
+    background-color: white !important;
+}
 .navbar{
     height: 5rem;
     background-color: white;
@@ -20,9 +23,14 @@ body{
     color: #222222 !important;
 }
 .navbar_bg{
-    background-color: white;
+    /* background-color: white; */
     text-align: center;
 }
+.nav-btn-link:hover{
+    background-color: rgb(245, 245, 245) !important;
+    border-radius: 20px !important;
+}
+
 
 /* footer */
 .f-info-links a{
@@ -131,6 +139,13 @@ body{
     height: 500px;
     border: 2px solid #000;
 }
+/* listing footer */
+
+.not-btn{
+    width: 100%;
+    padding: 1rem 0 !important;
+    
+}
 
 /* media query */
 
@@ -143,6 +158,9 @@ body{
     #map{
         height: 300px;
     } 
+    .search-box{
+        margin-left: 2rem !important;
+    }
 }
 
 /* listing page */

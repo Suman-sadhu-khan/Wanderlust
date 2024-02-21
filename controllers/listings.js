@@ -3,15 +3,36 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken=process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
+
+module.exports.search=async(req,res)=>{
+    let value=req.body.search;
+    const listing=await Listing.findOne({title:value});
+    // res.send(value);
+    // console.log(listing.country);
+    if(listing){
+        res.render("listings/search.ejs",{listing});
+    }
+    if(!listing){
+        req.flash("error","Your requested listing  does not exist!");
+        res.redirect("/listings");
+    }
+    
+}
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// (index logic)
 module.exports.index=async(req,res)=>{
     const allListings=await Listing.find({});
     res.render("listings/index.ejs",{allListings});
 }
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// (new page form)
 module.exports.renderNewForm=(req,res)=>{
     res.render("listings/new.ejs");
 };
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// (listing show page)
 module.exports.showListing=async (req,res)=>{
     let {id}=req.params;
     const listing=await Listing.findById(id)
@@ -31,6 +52,8 @@ module.exports.showListing=async (req,res)=>{
 
 };
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// (create new listing)
 module.exports.createListing=async(req,res,next)=>{
 
     let response=await geocodingClient.forwardGeocode({
@@ -53,6 +76,9 @@ module.exports.createListing=async(req,res,next)=>{
     res.redirect("/listings");
 };
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(edit page for listing)
+
 module.exports.renderEditForm=async(req,res)=>{
     let {id}=req.params;
     const listing=await Listing.findById(id);
@@ -66,6 +92,8 @@ module.exports.renderEditForm=async(req,res)=>{
     res.render("listings/edit.ejs",{listing,originalImageUrl});
 };
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(uptade listing)
 module.exports.updateListing=async (req,res)=>{
     if(!req.body.listing){
         throw new ExpressError(400,"Send valid data for listing");
@@ -83,6 +111,8 @@ if(typeof req.file !=="undefined"){
    res.redirect(`/listings/${id}`);
 };
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(delete listing route)
 module.exports.destroyListing=async (req,res)=>{
     let {id}=req.params;
     let deletedListing=await Listing.findByIdAndDelete(id);
