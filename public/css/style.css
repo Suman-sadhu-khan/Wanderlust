@@ -11,6 +11,7 @@ body{
 .container-fluid{
     background-color: white !important;
 }
+
 .navbar{
     height: 5rem;
     background-color: white;
@@ -19,6 +20,7 @@ body{
     color: #fe424d;
     font-size: 2rem;
 }
+
 .nav-link{
     color: #222222 !important;
 }
@@ -29,6 +31,10 @@ body{
 .nav-btn-link:hover{
     background-color: rgb(245, 245, 245) !important;
     border-radius: 20px !important;
+}
+.logo-explore{
+    display: flex;
+    flex-direction: row !important;
 }
 
 
@@ -160,6 +166,16 @@ body{
     } 
     .search-box{
         margin-left: 2rem !important;
+    }
+}
+
+@media(max-width:500px){
+    .phone-view{
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    .phone-view-edit-btn{
+        margin-left: 0 !important;
     }
 }
 

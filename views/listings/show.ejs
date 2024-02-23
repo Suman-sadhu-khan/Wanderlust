@@ -6,14 +6,14 @@
    
 </script>
 
-<div class="row mt-3">
+<div class="row mt-3 ">
     <!-- --------------------(listing information)------------------------ -->
 
-  <div class="col-8 offset-3">
+  <div class="col-8 offset-3 phone-view">
     <h3><%=listing.title%></h3>
   </div>
 
-    <div class="card col-6 offset-3 show-card listing-card">
+    <div class="card col-6 offset-3 show-card listing-card phone-view">
 
         <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="listing_image">
 
@@ -34,20 +34,20 @@
     </div>
     
     <br>
-
+    
     <% if(currUser && listing.owner._id.equals(currUser._id)){%>
-    <div class="btns">
-        <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark  offset-3 edit-btn">Edit</a>
+    <div class="btns ">
+        <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark offset-3 edit-btn phone-view-edit-btn">Edit</a>
 
         <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-            <button class="btn btn-dark offset-5">Delete</button>
+            <button class="btn btn-dark offset-5 ">Delete</button>
         </form>
         
     </div>
 <%}%>
     <!-- ------------------------(review form)------------------------------ -->
 
-    <div class="col-8 offset-3 mb-3">
+    <div class="col-8 offset-3 mb-3 phone-view">
         
         <% if(currUser){%>
             <hr>
@@ -117,12 +117,12 @@
         
     </div>
     <!-- ---------------------mapbox div and map functionality------------------------ -->
-    <div class="col-8 offset-3 mb-3">
+    <div class="col-8 offset-3 mb-3 phone-view">
         <h3>Where you'll be!</h3>
         <div id="map"></div>
     </div>
     
-    <div class="col-8 offset-3 mt-4 mb-3">
+    <div class="col-8 offset-3 mt-4 mb-3 phone-view">
         <button class="btn btn-dark not-btn">*Only <%= listing.owner.username %> can edit/delete this listing!</button>
     </div>
 
