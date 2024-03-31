@@ -8,12 +8,82 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #0093E9;
-    background-color: #8BC6EC;
-    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+    /* background-color: #0093E9;
+    background-color: #8BC6EC; 
+     background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); */
+    background-image: url('https://static.vecteezy.com/system/resources/previews/009/302/810/original/beautiful-forest-panoramic-realistic-wanderlust-background-landscape-dark-trees-pine-in-mist-design-mystery-fog-in-park-concept-nature-beauty-tourism-web-banner-free-vector.jpg');
+    background-size: cover;
+      background-position: center;
     height: 100vh;
 }
 
+.overlay-text {
+  text-align: center;
+  background-color: #bbd9f1;
+    /* Semi-transparent background for better readability */
+   
+  padding: 20px;
+  border-radius: 10px;
+  animation: slide 2s ease infinite alternate;
+    /* Animation */
+    
+}
+ @keyframes slide {
+   0% {
+     transform: translateY(-20px);
+   }
 
-  
+   100% {
+     transform: translateY(20px);
+   }
+ }
+
  
+h1 {
+  margin-bottom: 20px;
+  color: #131212;
+  /* Text color */
+  font-family: 'Helvetica', sans-serif;
+  /* Custom font */
+  font-size: 1.9rem;
+  /* Custom font size */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow */
+  overflow: hidden;
+  /* Hide overflowing text */
+  white-space: nowrap;
+  /* Prevent line breaks */
+  border-right: 0.15em solid rgb(7, 7, 7);
+  /* Simulate cursor */
+  animation: typingAnimation 2s steps(40, end) forwards;
+  /* Typing animation */
+}
+
+@keyframes typingAnimation {
+  from {
+    width: 0;
+    
+  }
+
+  to {
+    width: 100%;
+   
+  }
+}
+  
+.bttn {
+  padding: 10px 20px;
+  background-color:#0077cc;
+  color: #f7fafa;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.bttn:hover {
+  background-color: #2390de;
+  
+  color: #ffffff;
+  
+}

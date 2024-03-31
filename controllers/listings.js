@@ -6,13 +6,15 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.search=async(req,res)=>{
     let value=req.body.search;
-    const listing=await Listing.findOne({title:value});
+    const allListings=await Listing.find(
+        {title:{ $regex: value, $options: "i" }}
+        );
     // res.send(value);
     // console.log(listing.country);
-    if(listing){
-        res.render("listings/search.ejs",{listing});
+    if(allListings){
+        res.render("listings/search.ejs",{allListings});
     }
-    if(!listing){
+    if(!allListings){
         req.flash("error","Your requested listing  does not exist!");
         res.redirect("/listings");
     }
