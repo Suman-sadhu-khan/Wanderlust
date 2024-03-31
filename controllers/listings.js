@@ -11,10 +11,10 @@ module.exports.search=async(req,res)=>{
         );
     // res.send(value);
     // console.log(listing.country);
-    if(allListings){
+    if(allListings.length > 0){
         res.render("listings/search.ejs",{allListings});
     }
-    if(!allListings){
+    else {
         req.flash("error","Your requested listing  does not exist!");
         res.redirect("/listings");
     }
