@@ -2,6 +2,8 @@ const Listing=require("../models/listing.js");
 const review = require("../models/review.js");
 const Review=require("../models/review.js");
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(review post route)
 module.exports.createReview=async(req,res)=>{
     let listing=await Listing.findById(req.params.id);
     let newReview=new Review(req.body.review);
@@ -16,14 +18,17 @@ module.exports.createReview=async(req,res)=>{
     res.redirect(`/listings/${listing._id}`)
 };
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(review edit route form)
 module.exports.editReview=async(req,res)=>{
     let{id,reviewId}=req.params;
     const listing=await Listing.findById(id);
     const review=await Review.findById(reviewId);
     res.render("reviews/review_edit.ejs",{review,listing});
-    // res.send("happy");
 }
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(review edit update route )
 module.exports.editUpdateReview=async(req,res)=>{
     let{id,reviewId}=req.params;
     await Review.findByIdAndUpdate(reviewId,{...req.body.review});
@@ -31,6 +36,8 @@ module.exports.editUpdateReview=async(req,res)=>{
     res.redirect(`/listings/${id}`);
 }
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(review delete route)
 module.exports.destroyReview=async(req,res)=>{
     let{id,reviewId}=req.params;
     await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
