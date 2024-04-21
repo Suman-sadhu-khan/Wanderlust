@@ -42,12 +42,19 @@ const listingSchema=new Schema({
           }
     }
 });
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(listing schema post middleware)
+//(all reviews associated with any particular listing will get deleted , in case any listing got deleted!)
+
 listingSchema.post("findOneAndDelete",async(listing)=>{
-    if(listing){
+    if(listing.reviews.length){
         await Review.deleteMany({_id:{$in: listing.reviews}});
     }
 });
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 const Listing=mongoose.model("Listing",listingSchema);
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 module.exports=Listing;
