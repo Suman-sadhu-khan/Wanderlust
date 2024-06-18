@@ -2,7 +2,7 @@
 
  ## Tech Stack
 
-**Frontend:** Bootstrap
+**Frontend:** EJS, Bootstrap
 
 **Server:** Node JS, Express JS
 
