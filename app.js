@@ -78,8 +78,10 @@ const sessionOption={
     },
 };
 
-//using connect flash to display our massage
 app.use(session(sessionOption));
+
+//using connect flash to display our massage
+
 app.use(flash());
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
