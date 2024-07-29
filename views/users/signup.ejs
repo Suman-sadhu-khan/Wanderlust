@@ -1,8 +1,8 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">Signup on Wanderlust</h1>
-    <div class="col-6 offset-3">
+<div class="row  mt-3 phone-view">
+    <h1 class="col-6 offset-3 phone-view  mx-auto signup d-flex justify-content-center mb-3">Signup</h1>
+    <div class="col-6 offset-3 phone-view ">
         <form  method="POST" action="/signup" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
@@ -24,8 +24,10 @@
                id="password" required>
                 
             </div>
-
+            <div class="d-flex justify-content-between">
             <button class="btn btn-success">SignUp</button>
+            <a href="/login">Already have an account?</a>
+            </div>
         </form>
 
     </div>

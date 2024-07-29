@@ -1,50 +1,101 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-    <div id="filters">
-        <div class="filter f1">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
+<!-- filters -->
 
-        <div class="filter f2">
-          <div><i class="fa-solid fa-bed"></i></div>
-          <p>Rooms</p>
-        </div>
-
-        <div class="filter f3">
-          <div><i class="fa-solid fa-mountain-city"></i></div>
-          <p>Iconic Cities</p>
+<div class="filters">
+  <div class="categories  ">
+    <a href="/listings/filters/Trending">
+      <div class="category ms-3 mt-3">
+        <i class="fa-solid fa-fire"></i>
+        <p>Trending</p>
       </div>
-
-      <div class="filter f4">
-        <div><i class="fa-solid fa-mountain"></i></div>
+    </a>
+    <a href="/listings/filters/Iconic%20cities"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-monument"></i>
+        <p>Iconic cities</p>
+      </div>
+    </a>
+    <a href="/listings/filters/Mountains"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-mountain-sun"></i>
         <p>Mountains</p>
       </div>
-
-      <div class="filter f5">
-        <div><i class="fa-brands fa-fort-awesome"></i></div>
-        <p>Castles</p>
-    </div>
-    
-    <div class="filter f6">
-      <div><i class="fa-solid fa-person-swimming"></i></div>
-      <p>Amazing Pools</p>
-    </div>
-
-    <div class="filter f7">
-      <div><i class="fa-solid fa-campground"></i></div>
-      <p>Camping</p>
-    </div>
-
-    <div class="filter f8">
-      <div><i class="fa-regular fa-snowflake"></i></div>
-      <p>Arctic</p>
+    </a>
+    <a href="/listings/filters/Artic"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-snowflake"></i>
+        <p>Artic</p>
+      </div>
+    </a>
+    <a href="/listings/filters/Beach"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <p>Beach</p>
+      </div>
+    </a>
+    <a href="/listings/filters/Rooms"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-bed"></i>
+        <p>Rooms</p>
+      </div>
+    </a>
+    <a href="/listings/filters/Lakes"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-person-swimming"></i>
+        <p>Lakes</p>
+      </div>
+    </a>
+    <a href="/listings/filters/Boats"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-ship"></i>
+        <p>Boats</p>
+      </div>
+    </a>
+    <a href="/listings/filters/Farms"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-cow"></i>
+        <p>Farms</p>
+      </div>
+    </a>
+    <a href="/listings/filters/Ski-in%2Fout"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-person-snowboarding"></i>
+        <p>Ski-in/out</p>
+      </div>
+    </a>
+    <a href="/listings/filters/Camping"
+      ><div class="category ms-3 mt-2">
+        <i class="fa-solid fa-campground"></i>
+        <p>Camping</p>
+      </div>
+    </a>
   </div>
-  
-  <div class="filter f9">
-    <div><i class="fa-solid fa-igloo"></i></div>
-    <p>Domes</p>
+<!-- filter by price -->
+  <div class=" m-auto mt-3 col-xs-3">
+    <form
+      class="row g-3 needs-validation"
+      method="get"
+      action="/listings/filterPrice/price"
+      novalidate
+    >
+      <div class="col-8">
+        <select class="form-select pb-2" name="price" required>
+          <option selected value="2000">Less than &#8377;&nbsp;2000</option>
+          <option value="3500">&#8377;&nbsp;2000 - &#8377;&nbsp;3500</option>
+          <option value="5000">&#8377;&nbsp;3500 - &#8377;&nbsp;5000</option>
+          <option value="7500">&#8377;&nbsp;5000 - &#8377;&nbsp;7500</option>
+          <option value="10000">&#8377;&nbsp;7500 - &#8377;&nbsp;10000</option>
+          <option value="10001">&nbsp;above &#8377;&nbsp;10000</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn mb-3 pb-2" style="background-color: #fe424d; color: white ;">Apply</button>
+      </div>
+    </form>
   </div>
+
+<!-- Display total after taxes -->
 
    <div class="tax-toggle">
     <div class="form-check-reverse form-switch">
@@ -52,8 +103,10 @@
       <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
     </div>
   </div>
+ </div>
 
-    </div>
+ <!-- listings -->
+
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
         <%for(let listing of allListings){%>
             <a href="/listings/<%=listing._id%>" class="listing-link">

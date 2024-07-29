@@ -3,6 +3,55 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken=process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++
+//search by filters
+
+module.exports.filterListing = async (req, res) => {
+  let { filter } = req.params;
+  
+  let filteredListing = await Listing.find({ category: filter });
+  res.render("listings/index.ejs", { allListings:filteredListing });
+};
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++
+//search by price
+
+module.exports.filterPrice = async (req, res) => {
+  let price = req.query.price;
+  let filteredListing;
+  price = Number(price);
+  switch (price) {
+    case 2000:
+      filteredListing = await Listing.find({ price: { $lt: price + 1 } });
+      break;
+    case 3500:
+      filteredListing = await Listing.find({
+        price: { $gt: 2000, $lt: price + 1 },
+      });
+      break;
+    case 5000:
+      filteredListing = await Listing.find({
+        price: { $gt: 3500, $lt: price + 1 },
+      });
+      break;
+    case 7500:
+      filteredListing = await Listing.find({
+        price: { $gt: 5000, $lt: price + 1 },
+      });
+      break;
+    case 10000:
+      filteredListing = await Listing.find({
+        price: { $gt: 7500, $lt: price + 1 },
+      });
+      break;
+    case 10001:
+      filteredListing = await Listing.find({ price: { $gt: price - 1 } });
+  }
+  res.render("listings/index.ejs", { allListings:filteredListing });
+};
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++
+//search by title
 
 module.exports.search=async(req,res)=>{
     // let value=req.body.search;
