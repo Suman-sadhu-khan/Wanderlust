@@ -1,19 +1,19 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
 <div class="row  mt-4  phone-view">
-    <h1 class="col-6 offset-3 phone-view login d-flex justify-content-center mb-3 ">Login </h1>
+    <h1 class="col-6 offset-3 phone-view login d-flex justify-content-center mb-3 ">Login</h1>
     <div class="col-6 offset-3 phone-view">
         <form  method="POST" action="/login" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" name="username" class="form-control" 
-               id="username" required>
+               id="username" placeholder="Enter Your Name" required>
                 
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" 
+                <input type="password" name="password" placeholder="Enter Your Password" class="form-control" 
                id="password" required>
                 
             </div>

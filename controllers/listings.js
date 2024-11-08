@@ -10,7 +10,12 @@ module.exports.filterListing = async (req, res) => {
   let { filter } = req.params;
   
   let filteredListing = await Listing.find({ category: filter });
-  res.render("listings/index.ejs", { allListings:filteredListing });
+  if(filteredListing.length > 0){
+     res.render("listings/index.ejs", { allListings:filteredListing });
+  }else{
+    req.flash("error","Your requested listing  does not exist!");
+    res.redirect("/listings");
+  }
 };
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -47,7 +52,12 @@ module.exports.filterPrice = async (req, res) => {
     case 10001:
       filteredListing = await Listing.find({ price: { $gt: price - 1 } });
   }
-  res.render("listings/index.ejs", { allListings:filteredListing });
+  if(filteredListing.length > 0){
+    res.render("listings/index.ejs", { allListings:filteredListing });
+  }else{
+     req.flash("error","Your requested listing  does not exist!");
+        res.redirect("/listings");
+  }
 };
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++

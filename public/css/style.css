@@ -132,7 +132,12 @@ body{
 
 /* show page */
 .show-img{
-    height: 30vh;
+    height: 60vh;
+    width: 100%;
+    overflow: hidden;    
+}
+.image{
+object-fit: cover;
 }
 .btns{
     display: flex;
@@ -250,13 +255,15 @@ body{
     display: none;
 }
   .tax-toggle{
-      border: 1px solid black;
-      border-radius: 1rem;
-      height: 3.25rem;
+      border: 1px solid rgb(231, 230, 230);
+      border-radius: 0.5rem;
+      height: 2.7rem;
       padding: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: #fe424d;
+      color: white;
   }
 
   @media(max-width:560px) {
